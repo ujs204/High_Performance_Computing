@@ -94,11 +94,6 @@ int main(int argc, char** argv) {
 // measure performance.  What is the optimal value for BLOCK_SIZE?
 //
 //
-// * Now parallelize your matrix-matrix multiplication code using OpenMP:
-// To do that, you have to add -fopenmp to the compiler and comment in the
-// omp.h header file
-//
-//
 // * What percentage of the peak FLOP-rate do you achieve with your code?
 //
 //
