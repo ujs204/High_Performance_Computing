@@ -60,6 +60,7 @@ void sin4_intrin(double* sinx, const double* x) {
   s = _mm256_add_pd(s, _mm256_mul_pd(x3 , _mm256_set1_pd(c3 )));
   _mm256_store_pd(sinx, s);
 #elif defined(__SSE2__)
+  
   constexpr int sse_length = 2;
   for (int i = 0; i < 4; i+=sse_length) {
     __m128d x1, x2, x3;
@@ -72,6 +73,7 @@ void sin4_intrin(double* sinx, const double* x) {
     _mm_store_pd(sinx+i, s);
   }
 #else
+  printf("Reached here");
   sin4_reference(sinx, x);
 #endif
 }

@@ -25,7 +25,24 @@ void MMult0(long m, long n, long k, double *a, double *b, double *c) {
 }
 
 void MMult1(long m, long n, long k, double *a, double *b, double *c) {
-  // TODO: See instructions below
+  for (long j2 = 0; j2 < n; j2+=BLOCK_SIZE){
+    for(long p2 = 0; p2 < k; p2+=BLOCK_SIZE){
+      for(long i2 = 0; i2 < m; i2 += BLOCK_SIZE){
+
+        for(long j = j2; j < j2 + BLOCK_SIZE; j++){
+          for (long p = p2; p < p2 + BLOCK_SIZE; p++){
+            for(long i = i2; i < i2 + BLOCK_SIZE; i++){
+              double A_ip = a[i+p*m];
+              double B_pj = b[p+j*k];
+              double C_ij = c[i+j*m];
+              C_ij = C_ij + A_ip * B_pj;
+              c[i+j*m] = C_ij;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 int main(int argc, char** argv) {
@@ -58,8 +75,12 @@ int main(int argc, char** argv) {
       MMult1(m, n, k, a, b, c);
     }
     double time = t.toc();
-    double flops = 0; // TODO: calculate from m, n, k, NREPEATS, time
-    double bandwidth = 0; // TODO: calculate from m, n, k, NREPEATS, time
+    double flops = ((2*m*n*k)*NREPEATS)/time;// TODO: calculate from m, n, k, NREPEATS, time
+    //double bandwidth = 4 * (m * k * n/BLOCK_SIZE) * NREPEATS * sizeof(double) / time; // TODO: calculate from m, n, k, NREPEATS, time
+    double bandwidth = ((2*m*n*(k/BLOCK_SIZE+1)) * NREPEATS)/time; // TODO: calculate from m, n, k, NREPEATS, time
+    //double bandwidth = 4 * (n*k*m/BLOCK_SIZE) * NREPEATS * sizeof(double) / time; // TODO: calculate from m, n, k, NREPEATS, time
+    flops *= 1e-9;
+    bandwidth *= 1e-9;
     printf("%10ld %10f %10f %10f", p, time, flops, bandwidth);
 
     double max_err = 0;
