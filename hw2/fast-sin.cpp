@@ -4,6 +4,7 @@
 #include "intrin-wrapper.h"
 
 // Headers for intrinsics
+//g++ -std=c++11 -O3 -march=native fast-sin.cpp && ./a.out
 #ifdef __SSE__
 #include <xmmintrin.h>
 #endif
@@ -59,12 +60,13 @@ void sin4_intrin(double* sinx, const double* x) {
   x7  = _mm256_mul_pd(x5, x2);
   x9  = _mm256_mul_pd(x7, x2);
   x11  = _mm256_mul_pd(x9, x2);
+
   __m256d s = x1;
   s = _mm256_add_pd(s, _mm256_mul_pd(x3 , _mm256_set1_pd(c3 )));
-  s = _mm256_add_pd(s, _mm_mul_pd(x5 , _mm_set1_pd(c5 )));
-  s = _mm256_add_pd(s, _mm_mul_pd(x7 , _mm_set1_pd(c7 )));
-  s = _mm256_add_pd(s, _mm_mul_pd(x9 , _mm_set1_pd(c9 )));
-  s = _mm256_add_pd(s, _mm_mul_pd(x11 , _mm_set1_pd(c11 )));
+  s = _mm256_add_pd(s, _mm256_mul_pd(x5 , _mm256_set1_pd(c5 )));
+  s = _mm256_add_pd(s, _mm256_mul_pd(x7 , _mm256_set1_pd(c7 )));
+  s = _mm256_add_pd(s, _mm256_mul_pd(x9 , _mm256_set1_pd(c9 )));
+  s = _mm256_add_pd(s, _mm256_mul_pd(x11 , _mm256_set1_pd(c11 )));
   _mm256_store_pd(sinx, s);
 #elif defined(__SSE2__)
   constexpr int sse_length = 2;
