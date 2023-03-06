@@ -1,0 +1,508 @@
+1. compute.cpp
+
+- (*A) = (*A) * B + C;
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp && ./a.out -n 1000000000
+1.502684 seconds
+4.959019 cycles/eval
+1.330907 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+1.502962 seconds
+4.960025 cycles/eval
+1.330637 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp && ./a.out -n 1000000000
+4.202659 seconds
+13.868928 cycles/eval
+0.475884 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+4.221531 seconds
+13.931290 cycles/eval
+0.473753 Gflop/s
+
+
+
+- (*A) = C / (*A);
+
+
+3.913642 seconds
+12.915242 cycles/eval
+0.511024 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+3.925632 seconds
+12.954771 cycles/eval
+0.509464 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp && ./a.out -n 1000000000
+6.344436 seconds
+20.936770 cycles/eval
+0.315235 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+6.321742 seconds
+20.861940 cycles/eval
+0.316365 Gflop/s
+
+
+- (*A) = sqrt(*A);
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp && ./a.out -n 1000000000
+6.331145 seconds
+20.892974 cycles/eval
+0.315896 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+6.321692 seconds
+20.861890 cycles/eval
+0.316366 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp && ./a.out -n 1000000000
+8.472513 seconds
+27.959567 cycles/eval
+0.236055 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+8.435928 seconds
+27.838791 cycles/eval
+0.237079 Gflop/s
+
+- (*A) = sin(*A);
+
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp && ./a.out -n 1000000000
+11.443891 seconds
+37.764998 cycles/eval
+0.174765 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+11.363967 seconds
+37.501326 cycles/eval
+0.175994 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp && ./a.out -n 1000000000
+13.484444 seconds
+44.498944 cycles/eval
+0.148318 Gflop/s
+
+ujs204@access2 lecture4]$ g++ -std=c++11 -O -march=native compute.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+13.487899 seconds
+44.510208 cycles/eval
+0.148281 Gflop/s
+
+
+
+
+
+
+
+2. Compute-vec.cpp
+
+- #pragma unroll 
+
+g++ -fopenmp -std=c++11 -O3 -march=native compute-vec.cpp && ./a.out -n 1000000000
+time = 1.557578
+flop-rate = 5.135849 Gflop/s
+
+time = 1.805215
+flop-rate = 4.431547 Gflop/s
+
+time = 1.853819
+flop-rate = 4.315361 Gflop/s
+
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 1.514751
+flop-rate = 5.281035 Gflop/s
+
+time = 1.948853
+flop-rate = 4.104875 Gflop/s
+
+time = 1.990797
+flop-rate = 4.018444 Gflop/s
+
+- #pragma GCC ivdep 
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec.cpp && ./a.out -n 1000000000
+time = 1.633130
+flop-rate = 4.898109 Gflop/s
+
+time = 1.814050
+flop-rate = 4.409927 Gflop/s
+
+time = 1.917602
+flop-rate = 4.171834 Gflop/s
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 1.607860
+flop-rate = 4.975178 Gflop/s
+
+time = 1.896791
+flop-rate = 4.217559 Gflop/s
+
+time = 1.808813
+flop-rate = 4.422666 Gflop/s
+
+
+- #pragma omp simd aligned(A, B, C:64) safelen(4) 
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec.cpp && ./a.out -n 1000000000
+time = 1.625232
+flop-rate = 4.922014 Gflop/s
+
+time = 1.810674
+flop-rate = 4.418177 Gflop/s
+
+time = 1.810820
+flop-rate = 4.417760 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 1.508161
+flop-rate = 5.302994 Gflop/s
+
+time = 1.808890
+flop-rate = 4.422555 Gflop/s
+
+time = 1.807388
+flop-rate = 4.426229 Gflop/s
+
+
+
+3. 
+
+M = 1
+
+
+- #pragma unroll 
+
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 1.506100
+flop-rate = 5.311352 Gflop/s
+
+time = 1.889798
+flop-rate = 4.233191 Gflop/s
+
+time = 1.978532
+flop-rate = 4.043334 Gflop/s
+
+
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 1.671768
+flop-rate = 4.784589 Gflop/s
+
+time = 1.973091
+flop-rate = 4.054508 Gflop/s
+
+time = 2.058686
+flop-rate = 3.885882 Gflop/s
+
+
+- #pragma GCC ivdep 
+
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 1.503785
+flop-rate = 5.319654 Gflop/s
+
+time = 1.814840
+flop-rate = 4.408028 Gflop/s
+
+time = 1.812056
+flop-rate = 4.414800 Gflop/s
+
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 1.517614
+flop-rate = 5.270980 Gflop/s
+
+time = 1.904920
+flop-rate = 4.199563 Gflop/s
+
+time = 1.854711
+flop-rate = 4.313269 Gflop/s
+
+
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 1.723439
+flop-rate = 4.641681 Gflop/s
+
+time = 1.890386
+flop-rate = 4.231892 Gflop/s
+
+time = 1.871185
+flop-rate = 4.275319 Gflop/s
+
+
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 1.543431
+flop-rate = 5.183057 Gflop/s
+
+time = 1.914017
+flop-rate = 4.179593 Gflop/s
+
+time = 1.813884
+flop-rate = 4.410346 Gflop/s
+
+
+
+M = 4
+
+- #pragma unroll
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 5.308859
+flop-rate = 6.027580 Gflop/s
+
+time = 1.820230
+flop-rate = 17.580016 Gflop/s
+
+time = 1.831634
+flop-rate = 17.470086 Gflop/s
+
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 5.462878
+flop-rate = 5.857636 Gflop/s
+
+time = 1.813987
+flop-rate = 17.640465 Gflop/s
+
+time = 1.812518
+flop-rate = 17.654612 Gflop/s
+
+
+M = 8
+
+- #pragma GCC ivdep 
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 5.640777
+flop-rate = 5.672842 Gflop/s
+
+time = 1.850322
+flop-rate = 17.293633 Gflop/s
+
+time = 1.991899
+flop-rate = 16.064749 Gflop/s
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 5.482649
+flop-rate = 5.836510 Gflop/s
+
+time = 1.804620
+flop-rate = 17.732083 Gflop/s
+
+time = 1.804842
+flop-rate = 17.729802 Gflop/s
+
+
+- #pragma omp simd aligned(A, B, C:64) safelen(4)
+
+
+[ujs204@access1 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 5.540433
+flop-rate = 5.775501 Gflop/s
+
+time = 2.019735
+flop-rate = 15.843162 Gflop/s
+
+time = 1.875622
+flop-rate = 17.060781 Gflop/s
+
+[ujs204@access1 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 5.594484
+flop-rate = 5.719806 Gflop/s
+
+time = 1.810940
+flop-rate = 17.669985 Gflop/s
+
+time = 1.811021
+flop-rate = 17.669335 Gflop/s
+
+
+M = 8
+
+- #pragma unroll 
+
+[ujs204@access2 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000 
+
+time = 10.308582
+flop-rate = 6.208386 Gflop/s
+
+time = 1.879447
+flop-rate = 34.052123 Gflop/s
+
+time = 1.872465
+flop-rate = 34.179315 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+time = 10.249956
+flop-rate = 6.243900 Gflop/s
+
+time = 1.883889
+flop-rate = 33.971986 Gflop/s
+
+time = 1.873252
+flop-rate = 34.164756 Gflop/s
+
+
+- #pragma GCC ivdep 
+
+
+[ujs204@access2 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 10.305545
+flop-rate = 6.210215 Gflop/s
+
+time = 1.865977
+flop-rate = 34.297904 Gflop/s
+
+time = 1.867236
+flop-rate = 34.274952 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 10.241704
+flop-rate = 6.248935 Gflop/s
+
+time = 1.874391
+flop-rate = 34.144192 Gflop/s
+
+time = 1.863695
+flop-rate = 34.340166 Gflop/s
+
+- #pragma omp simd aligned(A, B, C:64) safelen(4)
+
+[ujs204@access2 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 10.261176
+flop-rate = 6.237075 Gflop/s
+
+time = 1.875801
+flop-rate = 34.118433 Gflop/s
+
+time = 1.871959
+flop-rate = 34.188486 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+time = 10.273591
+flop-rate = 6.229522 Gflop/s
+
+time = 1.892824
+flop-rate = 33.811500 Gflop/s
+
+time = 1.876030
+flop-rate = 34.114238 Gflop/s
+
+
+
+M = 12
+
+- #pragma unroll
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 15.668416
+flop-rate = 6.126950 Gflop/s
+
+time = 3.019237
+flop-rate = 31.795861 Gflop/s
+
+time = 3.027355
+flop-rate = 31.710269 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 15.718081
+flop-rate = 6.107585 Gflop/s
+
+time = 3.013908
+flop-rate = 31.852020 Gflop/s
+
+time = 3.012845
+flop-rate = 31.863260 Gflop/s
+
+
+#pragma GCC ivdep
+
+
+[ujs204@access2 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 15.785481
+flop-rate = 6.081518 Gflop/s
+
+time = 3.023941
+flop-rate = 31.746468 Gflop/s
+
+time = 3.025398
+flop-rate = 31.731194 Gflop/s
+
+
+[ujs204@access2 lecture4]$ g++ -fopenmp -std=c++11 -O3 -march=native compute-vec-pipe.cpp && ./a.out -n 1000000000
+time = 15.785481
+flop-rate = 6.081518 Gflop/s
+
+time = 3.023941
+flop-rate = 31.746468 Gflop/s
+
+time = 3.025398
+flop-rate = 31.731194 Gflop/s
+
+[ujs204@access2 lecture4]$ g++ -std=c++11 -O3 -march=native compute-vec-pipe.cpp -ftree-vectorize -fopt-info-vec-optimized && ./a.out -n 1000000000
+
+
+time = 15.666459
+flop-rate = 6.127719 Gflop/s
+
+time = 3.010538
+flop-rate = 31.887827 Gflop/s
+
+time = 3.021152
+flop-rate = 31.775793 Gflop/s
+
+
+The flop rate of OPENMP converges at M = 13. While the flop rate for the other command converges at M = 8. 
+
+
+
