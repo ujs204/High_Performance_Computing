@@ -1,0 +1,13 @@
+for number of threads: 1, the time for 10 iterations is: 0.001024  and the error is: 0.000985
+for number of threads: 1, the time for 100 iterations is: 0.165659  and the error is: 50.572739
+for number of threads: 1, the time for 1000 iterations is: 25.928086  and the error is: 950.527721
+for number of threads: 8, the time for 10 iterations is: 0.006184  and the error is: 0.000985
+for number of threads: 8, the time for 100 iterations is: 0.083802  and the error is: 50.572739
+for number of threads: 8, the time for 1000 iterations is: 2.957505  and the error is: 950.527721
+for number of threads: 16, the time for 10 iterations is: 0.009299  and the error is: 0.000985
+for number of threads: 16, the time for 100 iterations is: 0.118606  and the error is: 50.572739
+for number of threads: 16, the time for 1000 iterations is: 2.031125  and the error is: 950.527721
+for number of threads: 32, the time for 10 iterations is: 0.016518  and the error is: 0.000985
+for number of threads: 32, the time for 100 iterations is: 0.206563  and the error is: 50.572739
+for number of threads: 32, the time for 1000 iterations is: 2.683868  and the error is: 950.527721
+

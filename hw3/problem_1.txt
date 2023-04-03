@@ -1,0 +1,14 @@
+a. 1st parallel for loop: 
+
+- first half (initial n/2 loops) will be assigned to first thread
+- second half of the loops are assigned to second thread
+- this leads to waiting time to be sum(n/2 + 1, n) - sum(1,n/2) ms. And given that the two halves run symmetrically, the waiting time for both is the same. 
+
+b. Static 1 indicates that it will be alternatively executed by 2 threads (i.e. the opposite of the above). 
+
+- Thread 1: time = sum(1,n/2) incremented each time by 2 (e.g. i += 2)
+- Thread 2: time = sum(n/2 + 1, n) incremented each time by 2.
+
+c. Dynamic is the opposite of scheduled, as it is designated to threads that have already finished their last job (not reserved). By its first come and first serve behavior, some unevenness will occur between the threads. However, for large N, the times should be relatively identical, or only slightly worse.
+
+d. We can use nowait at the end of each #pragma for statement, in a way that causes the threads to not wait for each other after the first loop. Since the workload changes within the second loop, the overall time that both the loops would be spending becomes even within function f.  
