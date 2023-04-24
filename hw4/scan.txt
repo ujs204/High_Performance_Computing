@@ -1,0 +1,11 @@
+Rank 1/4 is running on cs516.hpc.nyu.edu.
+Rank 2/4 is running on cs517.hpc.nyu.edu.
+Rank 3/4 is running on cs518.hpc.nyu.edu.
+sequential-scan execuion time: 0.038095s
+Rank 0/4 is running on cs515.hpc.nyu.edu.
+Process 1 calculated its chunk and found offset 2684764643097238
+Process 2 calculated its chunk and found offset 2684725866546851
+Process 0 calculated its chunk and found offset 2683960358431990
+Process 3 calculated its chunk and found offset 2684687333403675
+parallel scan execution time = 0.080000s
+error = 0 

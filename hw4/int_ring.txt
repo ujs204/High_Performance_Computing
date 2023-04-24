@@ -1,0 +1,15 @@
+total contribution after N loops: 300
+expected contribution after N loops: 300
+estimated latency: 1.268733e-03 miliseconds 
+slurmstepd: error: *** JOB 32716279 ON cs399 CANCELLED AT 2023-04-23T04:20:06 DUE TO TIME LIMIT ***
+--------------------------------------------------------------------------
+ORTE has lost communication with a remote daemon.
+
+  HNP daemon   : [[37335,0],0] on node cs399
+  Remote daemon: [[37335,0],2] on node cs401
+
+This is usually due to either a failure of the TCP network
+connection to the node, or possibly an internal failure of
+the daemon itself. We cannot recover from this failure, and
+therefore will terminate the job.
+--------------------------------------------------------------------------

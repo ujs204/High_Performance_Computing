@@ -1,0 +1,8 @@
+Our plan for the final project is to solve the Multigrid Method using MPI and OMP. 
+Specifically, we are going to use restriction matrices and prolongation as our techniques in solving the Multigrid Method. 
+Then, after we call the Jacobi method for some number of iterations, we achieve our result. 
+As of now, we have already parallelized the portions that include the Jacobi and residual method.
+
+ujs204
+qj2030
+ww1284
